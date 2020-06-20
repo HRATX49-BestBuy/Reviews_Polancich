@@ -1,12 +1,14 @@
-const mysql = require("mysql");
+const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Hamster94!",
-  database: "bestBuyReviews"
+  host: 'localhost',
+  user: 'root',
+  password: 'Hamster94!',
+  database: 'bestBuyReviews'
 });
 
 connection.connect();
+
+//to do sanitize queries
 
 const getTheReviews = (id,cb) =>{
   console.log('Quering DB FOR ID',id)
