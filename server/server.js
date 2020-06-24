@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const PORT = 6969;
-const dbquery = require ('../db/queries')
+const PORT = process.env.RDS_PORT;
+const dbquery = require ('./db/queries')
+const { createProxyMiddleware } = require('http-proxy-middleware');
+// REVIEWS COMPONENT
 
 
 app.use(express.static(path.join(__dirname, '../frontEnd/dist')));
 app.use(express.json())
+
+
+
 
 app.get('/api/getReviews',(req,res)=>{
   console.log('Got a get req for id',req.query.id)
