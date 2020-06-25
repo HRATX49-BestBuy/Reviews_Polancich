@@ -6,9 +6,9 @@ var app = express();
 
 var path = require('path');
 
-var PORT = process.env.RDS_PORT;
+var PORT = process.env.PORT;
 
-var dbquery = require('./db/queries');
+var dbquery = require('../db/queries');
 
 var _require = require('http-proxy-middleware'),
     createProxyMiddleware = _require.createProxyMiddleware; // REVIEWS COMPONENT
@@ -26,7 +26,8 @@ app.get('/api/getReviews', function (req, res) {
       res.status(200).send(results);
     }
   });
-});
+}); // Need to move server compiled into same folder as server
+
 app.listen(PORT, function () {
   console.log("server is CONNECTED on PORT:".concat(PORT));
 });

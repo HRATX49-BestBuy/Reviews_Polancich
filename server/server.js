@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const PORT = process.env.RDS_PORT;
-const dbquery = require ('./db/queries')
+const PORT = process.env.PORT;
+const dbquery = require ('../db/queries')
 const { createProxyMiddleware } = require('http-proxy-middleware');
 // REVIEWS COMPONENT
 
@@ -25,7 +25,7 @@ app.get('/api/getReviews',(req,res)=>{
   })
 })
 
-
+// Need to move server compiled into same folder as server
 
 
 app.listen(PORT, () => {
