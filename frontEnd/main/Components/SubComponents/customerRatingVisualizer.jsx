@@ -1,19 +1,27 @@
 import React from 'react';
+import CustomizedProgressBars from './CustomerReviewProgressBar.jsx';
+import Checkbox from './checkboxes.jsx';
+
+const numberOfVotes = (props, votes) => {
+  let amtOfVotes = props.ratings[0].customerReviewCount;
+  if (votes === 100) {
+    return amtOfVotes;
+  } else {
+    return Math.floor((votes * amtOfVotes) / 100);
+  }
+}
 
 const CustomerRatingVisualizer = (props) => {
   return (
-    <div>
-      {/* {https://stackoverflow.com/questions/7190898/progress-bar-with-html-and-css} */}
-      {/* how to make a progress bar */}
-      <ul id='bILPcustomerRatingVisualization'>
-        <li><input type='checkbox'/> 5 <span className="fa fa-star checked"></span> <span id='progress5star'> [---------Just Some Filler------] </span> <span>Amount of 5 star Reviews</span> </li>
-        <li><input type='checkbox'/> 4 <span className="fa fa-star checked"></span> <span id='progress4star'> [---------Just Some Filler------] </span> <span>Amount of 4 star Reviews</span> </li>
-        <li><input type='checkbox'/> 3 <span className="fa fa-star checked"></span> <span id='progress3star'> [---------Just Some Filler------] </span> <span>Amount of 3 star Reviews</span> </li>
-        <li><input type='checkbox'/> 2 <span className="fa fa-star checked"></span> <span id='progress2star'> [---------Just Some Filler------] </span> <span>Amount of 2 star Reviews</span> </li>
-        <li><input type='checkbox'/> 1 <span className="fa fa-star checked"></span> <span id='progress1star'> [---------Just Some Filler------] </span> <span>Amount of 1 star Reviews</span> </li>
-      </ul>
-    </div>
+    <ul id='bILPcustomerRatingVisualization'>
+      <li className="miniLI"><Checkbox /><span className='bILPMinorPadding'> 5 </span><span className="fa fa-star insideMiniLi"></span> <span className="miniLIProgressBar"><CustomizedProgressBars value={props.starRatings[5]} /></span><span className='bILPMinorPadding'> {numberOfVotes(props, props.starRatings[5])}</span> </li>
+      <li className="miniLI"><Checkbox /><span className='bILPMinorPadding'> 4 </span><span className="fa fa-star insideMiniLi"></span> <span className="miniLIProgressBar"><CustomizedProgressBars value={props.starRatings[4]} /></span><span className='bILPMinorPadding'> {numberOfVotes(props, props.starRatings[4])}</span> </li>
+      <li className="miniLI"><Checkbox /><span className='bILPMinorPadding'> 3 </span><span className="fa fa-star insideMiniLi"></span> <span className="miniLIProgressBar"><CustomizedProgressBars value={props.starRatings[3]} /></span><span className='bILPMinorPadding'> {numberOfVotes(props, props.starRatings[3])}</span> </li>
+      <li className="miniLI"><Checkbox /><span className='bILPMinorPadding'> 2 </span><span className="fa fa-star insideMiniLi"></span> <span className="miniLIProgressBar"><CustomizedProgressBars value={props.starRatings[2]} /></span><span className='bILPMinorPadding'> {numberOfVotes(props, props.starRatings[2])}</span> </li>
+      <li className="miniLI"><Checkbox /><span className='bILPMinorPadding'> 1 </span><span className="fa fa-star insideMiniLi"></span> <span className="miniLIProgressBar"><CustomizedProgressBars value={props.starRatings[1]} /></span><span className='bILPMinorPadding'> {numberOfVotes(props, props.starRatings[1])}</span> </li>
+    </ul>
   )
-  }
-  
-  export default CustomerRatingVisualizer;
+}
+
+export default CustomerRatingVisualizer;
+
