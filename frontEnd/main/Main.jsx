@@ -9,23 +9,28 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
 // Main App where State is held
+// 4 main sub components, in order (Summary Main, Photo Header List, Reviews List, Footer)
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       reviewsData: [],
       clicked: false,
-      currentId: 14,
+      currentProduct: 100,
+      liveProductNums: [],
+      realProduct: false,
+      thumbnailImagesData: [],
     };
     this.getCurrentProductReview = this.getCurrentProductReview.bind(this);
     this.expand = this.expand.bind(this);
+    this.getListOfRealProducts = this.getListOfRealProducts.bind(this);
+    this.getThumbnailImagesofRealProduct = this.getThumbnailImagesofRealProduct.bind(this);
   }
   // On load, it starts with a default product however if a window event happens that meets criteria below, it will change product id.
   componentDidMount() {
-    this.getCurrentProductReview(this.state.currentId);
+    this.getListOfRealProducts();
 
     window.addEventListener("click", (event) => {
-      console.log("Click Firing", event);
       if (event.target.className === "itemName") {
         this.updateTheProduct("click", event.view.id);
       }
@@ -34,9 +39,19 @@ class App extends React.Component {
       this.updateTheProduct("submit", window.id);
     });
   }
+
+
   // Axios Get function to get certain product based on ID
   getCurrentProductReview(productID) {
-    Axios.get("/api/getReviews", { params: { id: productID } })
+    for (var i = 0; i < this.state.liveProductNums.length; i++){
+      if (this.state.liveProductNums[i].product_id === productID){
+        this.getThumbnailImagesofRealProduct(productID)
+        this.setState({
+          realProduct: true
+        })
+      }
+    }
+    Axios.get("/api/getReviews", { params: { id: productID} })
       .then((results) => {
         this.setState({
           reviewsData: results.data,
@@ -44,7 +59,42 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.log("Error with getReviews Axios Get APP.JS", error);
-      });
+      })
+  }
+
+  //Axios Get request that gets a list of Real products from DB
+  getListOfRealProducts(){
+    Axios.get("/api/getListOfRealProducts")
+      .then((productResults) => {
+        this.setState({
+          liveProductNums: productResults.data,
+        });
+      })
+      .catch((error) => {
+        console.log("Error with getListOfRealProducts Axios Get APP.JS", error);
+      })
+      .then(()=>{
+        this.getCurrentProductReview(this.state.currentProduct)
+      })
+  }
+
+  //Axios Get request that gets all the images of a certain product
+  getThumbnailImagesofRealProduct(productId){
+    Axios.get("/api/getListOfRealProductsThumbnails", { params: { id: productId} })
+      .then((thumbnails) => {
+        const results = [];
+        for (var key in thumbnails.data[0]) {
+          if (!Number.isInteger(thumbnails.data[0][key])) {
+            results.push(thumbnails.data[0][key]);
+          }
+        }
+        this.setState({
+          thumbnailImagesData: results,
+        });
+      })
+      .catch((error) => {
+        console.log("Error with getThumbnailImagesofRealProduct Axios Get APP.JS", error);
+      })
   }
 
   // Function that tells Reviews component to open up or not
@@ -56,14 +106,14 @@ class App extends React.Component {
   // Function that is fired from window event listener, this changes product number
   updateTheProduct(type, id) {
     if (type === "submit" || type === "click") {
-      if (id !== this.state.currentId && Number.isInteger(id)) {
+      if (id !== this.state.currentProduct && Number.isInteger(id)) {
         this.setState({
-          currentId: id,
+          currentProduct: id,
           clicked: false,
         });
       }
     }
-    this.getCurrentProductReview(this.state.currentId);
+    this.getCurrentProductReview(this.state.currentProduct);
   }
 
   // If theres no data it will display a Standby message
@@ -110,11 +160,14 @@ class App extends React.Component {
               <div id="bILPSummaryMainSection">
                 <SummaryMain thisProductsData={this.state.reviewsData} />
               </div>
-              <div id="bILPPhotoSection">
-                <PhotoHeaderList thisProductsData={this.state.reviewsData} />
+              <div id="bILPPhotoSectionContainer">
+                <div id='bILPPhotoTitle'><span>Customer images</span></div>
+                <div id="bILPPhotoListContainer">
+                <PhotoHeaderList realProduct={this.state.realProduct} thumbnailImages={this.state.thumbnailImagesData} thisProductsData={this.state.reviewsData} />
+                </div>
               </div>
               <div id="bILPMainReviewsSection">
-                <ReviewsList thisProductsData={this.state.reviewsData} />
+                <ReviewsList real={this.state.realProduct} thisProductsData={this.state.reviewsData} thumbnailImages={this.state.thumbnailImagesData} />
               </div>
               <div>
                 <Footer id="bILPFooterSection" />

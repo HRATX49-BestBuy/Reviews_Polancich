@@ -30,6 +30,11 @@
 .mainStars {
   margin-left: 12px !important;
   font-size: medium !important;
+  color: gold;
+}
+
+.justStars{
+  color: gold;
 }
 
 .bILPArrowIcon{
@@ -61,7 +66,6 @@
   display: flex !important;
   width: 100% !important;
   height: 100% !important;
-  border-bottom: 1px solid #d3d3d3 !important;
   flex-direction: row !important;
   
 }
@@ -116,6 +120,7 @@
   font-size: 25px !important;
   margin-bottom: 0 !important;
   align-items: center !important;
+  color: gold;
 }
 
 #bILPCustomerAmtOfReviews{
@@ -177,6 +182,7 @@
   display: inline-block !important;
   /* border: 2px solid greenyellow; */
   width: 10% !important;
+  color: gold;
 }
 
 .bILPMinorPadding{
@@ -221,17 +227,41 @@
 /* Customer Rating Visualizer */
 /* Recommendation */
 
+#bILPAllReviewsSection{
+  border-top: 1px solid #d3d3d3 !important; ;
+}
+
 /* -------------------------------- */
 /* PhotoHeaderList */
-#bILPPhotoSection {
-  display: flex !important;
-  /* border: 2px solid pink; */
-  border-bottom: 1px solid #d3d3d3 !important;
-  /* border-top: 1px solid gray; */
+#bILPPhotoSectionContainer{
   margin-top: 10px !important;
-  width: 100% !important;
+  justify-content: center;
   flex-direction: row !important;
 }
+
+#bILPPhotoSection {
+  /* border: 2px solid pink; */
+  /* border-top: 1px solid gray; */
+  margin-top: 10px !important;
+  justify-content: center;
+  flex-direction: row !important;
+  margin-bottom: 8px;
+}
+
+#bILPPhotoTitle{
+  margin: 0;
+  font-family: Human BBY Web,Arial,Helvetica,sans-serif !important;
+  font-weight: bold;
+  border-bottom: 1px solid #d3d3d3 !important;
+  padding-bottom: 10px;
+}
+
+#bILPPhotoListContainer{
+  display: flex;
+  justify-content: center;
+}
+
+
 #bILPCustomerImagesLine{
   display: flex !important;
   justify-self: start !important;
@@ -242,7 +272,6 @@
 
 /* Has 1 sub Component */
 #bILPLineofPhotos{
-  margin-top: 30px !important;
   display: flex !important;
   flex-direction: row !important; 
   width: 80% !important;
@@ -258,7 +287,11 @@
   /* align-items: center; */
   margin-left: 10px !important;
   margin-right: 10px !important;
+}
 
+#bILPindivPhotoPhoto{
+  width: 80px;
+  height: 80px;
 }
 /* Photos */
 
@@ -331,6 +364,8 @@ color: #666666 !important;
 
 .bILPImageThumbnail{
   border: 2px solid white !important;
+  width: 80px;
+  height: 80px;
 }
 
 .bILPImageThumbnail:hover{
@@ -410,6 +445,7 @@ color: #666666 !important;
   justify-content: center !important;
   margin-top: 2% !important;
   margin-bottom: 3% !important;
+  width: 100%;
 }
 
 #bILPShowMoreBTN{
@@ -423,6 +459,8 @@ color: #666666 !important;
   border-radius: 5px !important;
   display: inline-block !important;
   border-width: thin !important;
+  width: fit-content;
+  height: fit-content;
 }
 
 #bILPShowMoreBTN:hover {
@@ -437,6 +475,8 @@ color: #666666 !important;
   display: inline-block !important;
   transition-duration: 0.5s !important;
   border-width: thin !important;
+  width: fit-content;
+  height: fit-content;
 }
 
 #bILPWriteAReviewBTN{
@@ -450,6 +490,8 @@ color: #666666 !important;
   border-radius: 5px !important;
   display: inline-block;
   border-width: thin !important;
+  width: fit-content;
+  height: fit-content;
 }
 #bILPWriteAReviewBTN:hover {
   margin-left: 5px !important;
@@ -463,6 +505,8 @@ color: #666666 !important;
   display: inline-block !important;
   transition-duration: 0.5s !important;
   border-width: thin !important;
+  width: fit-content;
+  height: fit-content;
 }
 
 .fa {

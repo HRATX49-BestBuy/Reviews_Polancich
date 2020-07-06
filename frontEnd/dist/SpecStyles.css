@@ -51,7 +51,7 @@
   line-height: 15px !important;
 }
 
-.bILPSpecsAdditionalComponentMain{
+.bILPSpecsnpm run dditionalComponentMain{
   display: inline-flex !important;
   /* flex-direction: row; */
   align-items: center !important;
@@ -192,10 +192,7 @@
   position: relative !important;
   align-items: center !important;
   border-top: 1px solid #d3d3d3 !important;
-}
-
-.bILPQnATitleMainText{
-  
+  border-bottom: 1px solid #d3d3d3 !important;
 }
 
 .bILPQnAHoldContainer{

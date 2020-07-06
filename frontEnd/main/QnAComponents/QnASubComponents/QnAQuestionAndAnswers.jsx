@@ -2,10 +2,11 @@ import React from "react";
 import QnAQuestions from "./QnAQuestions.jsx";
 import questionAndAnswers from "../../../qNaDummyData";
 
+// function to get a random number between a given min and max
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
+// function that generates a random name.
 function generateName() {
   var name1 = [
     "Benjamin",
@@ -38,10 +39,11 @@ function generateName() {
   return name;
 }
 
-const QnAQuestionAndAnswers = (props) =>
-  questionAndAnswers.map((oneQuestionAndAnswer) => {
+// this component maps through each Question and passed its contents down to a sub component.
+const QnAQuestionAndAnswers = (props) => {
+  return questionAndAnswers.map((oneQuestionAndAnswer, i) => {
     return (
-      <div className="QnAQuestionsMain">
+      <div key={i} className="QnAQuestionsMain">
         <QnAQuestions
           questionAsker={generateName()}
           answerTeller={generateName()}
@@ -50,5 +52,5 @@ const QnAQuestionAndAnswers = (props) =>
       </div>
     );
   });
-
+};
 export default QnAQuestionAndAnswers;
